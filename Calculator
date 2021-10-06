@@ -1,0 +1,55 @@
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter first number");
+        int i = scanner.nextInt();
+
+        System.out.println("Enter second number");
+        int j = scanner.nextInt();
+
+        System.out.println("Enter your operation");
+        String operation = scanner.next();
+
+        switch (operation){
+            case "+": Calculator calculator = new Calculator();
+                      System.out.println("Your answer " + calculator.sum(i, j));
+                      break;
+            case "-": Calculator calculator1 = new Calculator();
+                      System.out.println("Your answer " + calculator1.diff(i, j));
+                      break;
+            case "*": Calculator calculator2 = new Calculator();
+                      System.out.println("Your answer " + calculator2.mult(i, j));
+                      break;
+            case "/": Calculator calculator3 = new Calculator();
+                      System.out.println("Your answer " + calculator3.div(i, j));
+                      break;
+        }
+
+    }
+}
+
+
+
+
+
+import java.util.Scanner;
+
+public class Calculator {
+    int sum(int i, int j){
+        return i + j;
+    }
+    int diff(int i, int j){
+        return i - j;
+    }
+    int mult(int i, int j){
+        return i * j;
+    }
+    int div(int i, int j){
+        return i / j;
+    }
+}
