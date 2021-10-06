@@ -1,0 +1,103 @@
+// Создаем программу для расчета количества ингредиентов для определенного веса пиццы. Например, программа посчитает, сколько ингредиентов взять для пиццы 400 грамм. 
+
+// Создать класс dough (тесто)
+// Создать переменные flour, water и oliveOil.
+// Создать static метод recipe, который возвращает рецепт теста ("For 1 kg dough use 600g water, 450g flour, 50g olive oil.")
+// Создать метод calculateIngredients, который принимает вес готового теста и распределяет этот вес по ингредиентам (60% воды, 45% муки,  5% оливкового масла). 
+// Создать getters для каждой переменной (это методы, которые возвращают значения переменных).
+
+// Создать класс pizza. 
+// Создать переменные amountPizza, cheese, tomatoSauсe, truffle и объект dough.
+// Создать конструктор, который принимает вес готовой пиццы amountPizza, кладет этот вес в переменную amountPizza и распределяет этот вес по ингредиентам (55% теста (вызвать метод для объекта), 16% томатного соуса, 37% сыра, 0.5 трюфеля). 
+
+// Создать static метод recipe, который возвращает рецепт - "For 1 kg pizza use 500g dough, 150g tomato sauce, 350g cheese and 5g white truffle."
+
+// Создать метод ingredients, который возвращает ингредиенты в виде списка, например:
+// For 1000g pizza use: 
+//      - 300g water, 
+//      - 225g flour, 
+//      - 25g olive oil, 
+//      - 160g tomato sauce, 
+//      - 370g cheese, 
+//      - 5g white truffle.
+
+// В методе main:
+// - посмотреть рецепт пиццы
+// - посмотреть рецепт теста 
+
+// Создать объект pizza с весом, например, 1 кг;
+// Вывести в консоль ингредиенты.
+
+public class Main {
+public static void main(String[] args) {
+
+    Pizza.recipe();
+    Dough.recipe();
+
+    Pizza pizza = new Pizza(700);
+    pizza.ingredients();
+
+    }
+}
+
+
+public class Dough {
+    private int flour;
+    private int water;
+    private int oliveOil;
+
+    public static void recipe() {
+        System.out.println("For 1 kg dough use 600g water, 450g flour, 50g olive oil.");
+    }
+
+    public void calculateIngredients(int amountDough) {
+        flour = amountDough * 45 / 100;
+        water = amountDough * 60 / 100;
+        oliveOil = amountDough * 5 / 100;
+    }
+
+    public int getFlour() {
+        return flour;
+    }
+
+    public int getWater() {
+        return water;
+    }
+
+    public int getOliveOil() {
+        return oliveOil;
+    }
+}
+
+
+public class Pizza {
+    private int amountPizza;
+    private int cheese;
+    private int tomatoSauce;
+    private int truffle;
+    Dough dough = new Dough();
+
+    public Pizza(int amountPizza) {
+        this.amountPizza = amountPizza;
+        cheese = amountPizza / 100 * 37;
+        tomatoSauce = amountPizza / 100 * 16;
+        truffle = amountPizza / 1000 * 5;
+    }
+
+    public static void recipe(){
+        System.out.println("For 1 kg pizza use 500g dough, 150g tomato sauce, 350g cheese and 5g white truffle.");
+    }
+
+    public void ingredients(){
+        System.out.println("For " + amountPizza + "g pizza use: \n" +
+                "      - " + dough.getWater() + "g water, \n" +
+                "      - " + dough.getFlour() + "g flour, \n" +
+                "      - " + dough.getOliveOil() + "g olive oil, \n" +
+                "      - " + tomatoSauce + "g tomato sauce, \n" +
+                "      - " + cheese + "g cheese, \n" +
+                "      - " + truffle + "g white truffle.");
+    }
+}
+
+
+
