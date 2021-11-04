@@ -1,0 +1,94 @@
+package org;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public abstract class BaseChecker {
+
+    private BaseChecker next;
+
+    public BaseChecker linkWith(BaseChecker next) {
+        this.next = next;
+        return next;
+    }
+
+    public boolean checkNext(String email, String pass) {
+        if (next == null) {
+            return true;
+        }
+        return next.check(email, pass);
+    }
+
+    public abstract boolean check(String email, String pass);
+}
+
+class EmailChecker extends BaseChecker {
+
+
+    @Override
+    public boolean check(String email, String pass) {
+        if (!email.contains("@")) {
+            return false;
+        }
+        return checkNext(email, pass);
+    }
+}
+
+class PassChecker extends BaseChecker {
+
+    @Override
+    public boolean check(String email, String pass) {
+        if (pass.length() < 5) {
+            return false;
+        }
+        return checkNext(email, pass);
+    }
+}
+
+class SecurityChecker extends BaseChecker {
+
+    @Override
+    public boolean check(String email, String pass) {
+        if (pass.equals(email)) {
+            return false;
+        }
+        return checkNext(email, pass);
+    }
+}
+
+class NewChecker extends BaseChecker {
+
+    @Override
+    public boolean check(String email, String pass) {
+        if (pass.equals(email)) {
+            return false;
+        }
+        return checkNext(email, pass);
+    }
+}
+
+class Server {
+    Map<String, String> users = new HashMap<>();
+    public BaseChecker baseChecker;
+
+    public Server(BaseChecker baseChecker) {
+        this.baseChecker = baseChecker;
+    }
+
+    public boolean auth(String email, String pass) {
+        if (baseChecker.check(email, pass)) {
+            return true;
+        }
+        return false;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        BaseChecker checker = new EmailChecker();
+        checker.linkWith(new SecurityChecker()).linkWith(new PassChecker());
+        Server server = new Server(checker);
+        boolean auth = server.auth("a@a.com", "1234");
+        System.out.println("client with pass and email a@a.com 1234 " + auth);
+    }
+}
